@@ -1,0 +1,5 @@
+/build/
+/.vscode/
+/_dep/
+test/run-test
+**/cookie.txt

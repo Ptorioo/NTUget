@@ -1,0 +1,35 @@
+name: Build ntuget
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install -y libcurl4-openssl-dev
+
+      - name: Configure the project
+        run: cmake -S . -B ${{github.workspace}}/build
+
+      - name: Build the project
+        run: cmake --build build
+
+      - name: Verify build
+        run: |
+          if [ ! -f build/ntuget ]; then
+            echo "Build failed: Executable not found"
+            exit 1
+          fi

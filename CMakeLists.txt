@@ -1,0 +1,26 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 3.10)
+
+PROJECT(ntuget)
+
+SET(CMAKE_C_STANDARD 17)
+SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake)
+
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/ntuget/include)
+
+FIND_PACKAGE(curl REQUIRED)
+INCLUDE_DIRECTORIES(${CURL_INCLUDE_DIR})
+
+FILE(GLOB_RECURSE SOURCES "ntuget/src/*.c")
+
+ADD_EXECUTABLE(ntuget ${SOURCES})
+
+TARGET_LINK_LIBRARIES(ntuget ${CURL_LIBRARY} m)
+
+TARGET_COMPILE_OPTIONS(ntuget PRIVATE -g -Wall -Wextra -Wno-unused-variable -Wno-unused-parameter -O2 -pedantic -fsanitize=address)
+TARGET_LINK_OPTIONS(ntuget PRIVATE -fsanitize=address)
+
+ADD_CUSTOM_COMMAND(TARGET ntuget POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    ${CMAKE_SOURCE_DIR}/curl-ca-bundle.crt
+    $<TARGET_FILE_DIR:ntuget>
+)
