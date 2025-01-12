@@ -10,8 +10,8 @@ This project is still at its early stage, so any contribution is welcomed.
 
 - [x] SSO login support
 - [x] Parse unread conversation count
-- [ ] Parse course info
-- [ ] Parse dashboard cards
+- [x] Parse course info
+- [x] Parse dashboard cards
 - [ ] Parse planner items
 - [ ] Parse conversations
 - [ ] Support more user actions

@@ -12,6 +12,16 @@ int main(int argc, char **argv)
         printf("Login returned status: %d\n", status);
     }
 
+    printf("Unread conversation count: \n");
     parser_unreadCount();
+    printf("--------------------\n");
+
+    printf("Enrolled courses: \n");
+    parser_dashboard();
+    printf("--------------------\n");
+
+    printf("Activities & Announcements: \n");
+    parser_planner();
+
     return 0;
 }
