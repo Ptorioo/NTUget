@@ -21,7 +21,9 @@ static char *parser_planner_url(void)
 
 static json_value *parser(char *URL)
 {
-    FILE *file = fopen("cookie.txt", "r");
+    const char *full_path = get_full_path();
+    FILE *file = fopen(full_path, "r");
+    free((void *)full_path);
 
     if (file == NULL)
     {

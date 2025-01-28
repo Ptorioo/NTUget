@@ -215,7 +215,10 @@ static LoginStatus login_sso(const char *username, const char *pwd, bool verbose
     if (status != LOGIN_SUCCESS)
         return status;
 
-    FILE *file = fopen("cookie.txt", "w");
+    const char *full_path = get_full_path();
+    FILE *file = fopen(full_path, "w");
+    free((void *)full_path);
+
     if (file == NULL)
         fprintf(stderr, "login_sso: Failed to open or create cookie file\n");
     else if (fprintf(file, "%s\n", session_cookie) < 0)
@@ -234,7 +237,9 @@ static LoginStatus login_sso(const char *username, const char *pwd, bool verbose
 
 LoginStatus login(const char *username, const char *pwd, bool verbose)
 {
-    FILE *file = fopen("cookie.txt", "r");
+    const char *full_path = get_full_path();
+    FILE *file = fopen(full_path, "r");
+    free((void *)full_path);
 
     if (file == NULL)
     {

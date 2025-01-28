@@ -78,7 +78,7 @@ int main(int argc, char **argv)
 
     get_password(pwd, sizeof(pwd));
 
-    LoginStatus status = login(usr, pwd, 0);
+    LoginStatus status = login(usr, pwd, true);
     printf("Login returned status: %d\n", status);
     if (status == 0)
     {

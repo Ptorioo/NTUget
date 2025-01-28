@@ -25,4 +25,6 @@ void print_header(struct curl_slist *headers);
 
 const char *executable_directory(void);
 
+const char *get_full_path(void);
+
 #endif

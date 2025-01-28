@@ -16,8 +16,13 @@ ADD_EXECUTABLE(ntuget ${SOURCES})
 
 TARGET_LINK_LIBRARIES(ntuget ${CURL_LIBRARY} m)
 
-TARGET_COMPILE_OPTIONS(ntuget PRIVATE -g -Wall -Wextra -Wno-unused-variable -Wno-unused-parameter -O2 -pedantic -fsanitize=address)
-TARGET_LINK_OPTIONS(ntuget PRIVATE -fsanitize=address)
+IF(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    TARGET_COMPILE_OPTIONS(ntuget PRIVATE -g -Wall -Wextra -Wno-unused-parameter -pedantic -fsanitize=address)
+    TARGET_LINK_OPTIONS(ntuget PRIVATE -fsanitize=address)
+ELSEIF(CMAKE_BUILD_TYPE STREQUAL "Release")
+    TARGET_COMPILE_OPTIONS(ntuget PRIVATE -O2 -DNDEBUG)
+    TARGET_LINK_OPTIONS(ntuget PRIVATE -s)
+ENDIF()
 
 ADD_CUSTOM_COMMAND(TARGET ntuget POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different

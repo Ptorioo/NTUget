@@ -26,7 +26,7 @@ bool concat(char *buffer, size_t buffer_size, int count, ...)
     return true;
 }
 
-void print_header(struct curl_slist *headers)
+inline void print_header(struct curl_slist *headers)
 {
     struct curl_slist *current = headers;
     while (current)
@@ -79,4 +79,13 @@ const char *executable_directory(void)
     }
 
     return directory;
+}
+
+inline const char *get_full_path(void)
+{
+    const char *path = executable_directory();
+    char full_path[PATH_MAX];
+    snprintf(full_path, sizeof(full_path), "%s/cookie.txt", path);
+    free((void *)path);
+    return strdup(full_path);
 }

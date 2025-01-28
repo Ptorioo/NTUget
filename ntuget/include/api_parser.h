@@ -6,6 +6,7 @@
 #include <time.h>
 #include "json.h"
 #include "request.h"
+#include "utils.h"
 
 #define UNREAD_COUNT_URL "https://cool.ntu.edu.tw/api/v1/conversations/unread_count"
 #define COURSE_URL "https://cool.ntu.edu.tw/api/v1/courses/"
