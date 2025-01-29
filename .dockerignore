@@ -1,0 +1,13 @@
+Dockerfile
+.gitignore
+.dockerignore
+/_dep
+/.github
+/.git
+/.vscode
+/build
+/docs
+/test
+**/cookie.txt
+LICENSE
+*.md

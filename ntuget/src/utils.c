@@ -54,7 +54,7 @@ const char *executable_directory(void)
         *(lastSlash + 1) = '\0';
     }
 
-#else
+#elif defined(__unix__) || defined(__linux__) || defined(__APPLE__)
 
     ssize_t result = readlink("/proc/self/exe", exePath, sizeof(exePath) - 1);
     if (result == -1)

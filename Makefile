@@ -1,11 +1,8 @@
 # Allow only one "make -f Makefile2" at a time, but pass parallelism.
 .NOTPARALLEL:
 
-# Command-line flag to silence nested $(MAKE).
-$(VERBOSE)MAKESILENT = -s
-
-#Suppress display of executed commands.
-$(VERBOSE).SILENT:
+# Command-line flag to silence $(MAKE).
+MAKEFLAGS += -s
 
 # Compiler and build configuration
 BUILD_DIR = build
