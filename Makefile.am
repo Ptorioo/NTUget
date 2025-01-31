@@ -5,6 +5,7 @@ CMAKE_DIST = \
 
 EXTRA_DIST = \
     $(CMAKE_DIST) \
+    CMakeLists.txt \
     Dockerfile \
     .dockerignore
 
@@ -13,6 +14,4 @@ SUBDIRS = \
 
 DIST_SUBDIRS = \
     $(SUBDIRS) \
-    include \
-    test \
-    docs
+    include

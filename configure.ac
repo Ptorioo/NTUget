@@ -1,6 +1,6 @@
 AC_PREREQ([2.71])
 
-AC_INIT([ntuget], [-])
+AC_INIT([ntuget], [0.1.0])
 
 AC_CONFIG_SRCDIR([src/ntuget.c])
 AC_CONFIG_FILES([Makefile include/Makefile src/Makefile])

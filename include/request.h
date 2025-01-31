@@ -5,11 +5,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+
+#if defined(__unix__) || defined(__linux__) || defined(__APPLE__)
+#include <sys/stat.h>
+#endif
+
 #include <curl/curl.h>
 #include "config.h"
 #include "utils.h"
-
-#define CA_FILE_NAME "curl-ca-bundle.crt"
 
 typedef struct
 {

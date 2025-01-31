@@ -37,15 +37,33 @@ static size_t header_callback(char *buffer, size_t size, size_t nitems, void *us
     return total_size;
 }
 
+inline static char *get_certificate_path() {
+#if defined(__unix__) || defined(__linux__) || defined(__APPLE__)
+    struct stat buffer;
+    if (stat(SYSTEM_CA_PATH, &buffer) == 0) {
+        return strdup(SYSTEM_CA_PATH);
+    }
+    return NULL;
+#else
+    const char *exePath = executable_directory();
+    size_t len = strlen(exePath) + strlen(CA_FILE_NAME) + 1;
+    char *crt_dir = malloc(len * sizeof(char));
+    if (!crt_dir) {
+        free((void *)exePath);
+        return NULL;
+    }
+    snprintf(crt_dir, len, "%s%s", exePath, CA_FILE_NAME);
+    free((void *)exePath);
+    return crt_dir;
+#endif
+}
+
 RequestResponse *request_get(RequestOptions opt)
 {
     CURL *curl = curl_easy_init();
     RequestResponse *response = request_response_init();
 
-    const char *exePath = executable_directory();
-    size_t len = strlen(exePath) + strlen(CA_FILE_NAME) + 1;
-    char *crt_dir = malloc(len * sizeof(char));
-    snprintf(crt_dir, len, "%s%s", exePath, CA_FILE_NAME);
+    const char *crt_dir = get_certificate_path();
 
     if (curl)
     {
@@ -106,7 +124,6 @@ RequestResponse *request_get(RequestOptions opt)
     if (opt.verbose)
         printf("****************************************\n");
 
-    free((void *)exePath);
     free((void *)crt_dir);
     curl_easy_cleanup(curl);
 
@@ -118,10 +135,7 @@ RequestResponse *request_post(RequestOptions opt)
     CURL *curl = curl_easy_init();
     RequestResponse *response = request_response_init();
 
-    const char *exePath = executable_directory();
-    size_t len = strlen(exePath) + strlen(CA_FILE_NAME) + 1;
-    char *crt_dir = malloc(len * sizeof(char));
-    snprintf(crt_dir, len, "%s%s", exePath, CA_FILE_NAME);
+    const char *crt_dir = get_certificate_path();
 
     if (curl)
     {
@@ -186,7 +200,6 @@ RequestResponse *request_post(RequestOptions opt)
     if (opt.verbose)
         printf("****************************************\n");
 
-    free((void *)exePath);
     free((void *)crt_dir);
     curl_easy_cleanup(curl);
 
