@@ -36,8 +36,6 @@ Compiling and installing libcurl from source is strongly encouraged, see more in
 
 ## Build
 
-### Docker
-
 To run the current build of NTUget in a Docker container, use the following commands.
 
 ```
@@ -45,6 +43,10 @@ docker build -t ntuget .
 docker run --rm --name ntuget -it ntuget
 ```
 
-### CMake
+To build in environments that support configure, use the following commands.
 
-NTUget can be compiled and linked using CMake, you can utilize the current Makefile to simplify the process.
+```
+autoreconf -fi
+./configure --enable-debug
+make
+```
