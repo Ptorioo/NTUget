@@ -3,9 +3,9 @@
 # Defined variables
 COMPILER="gcc"
 CFLAGS="-Wall -Wextra -O2 -pedantic -fsanitize=address"
-INCLUDE_PATH="-I../ntuget/include"
+INCLUDE_PATH="-I../include"
 LIBS="-lcurl -lssl -lcrypto -lz -lbrotlidec -lbrotlicommon -lpsl"
-SRC_PATH="../ntuget/src"
+SRC_PATH="../src"
 TEST_PROGRAM="test.c"
 OUTPUT="run-test"
 
